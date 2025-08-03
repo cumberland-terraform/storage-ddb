@@ -1,4 +1,8 @@
-resource "aws_dynamodb_table" "lambda_table" {
+resource "aws_dynamodb_table" "this" {
+    lifecycle {
+        ignore_changes      = [ tags ]
+    }
+    
     name                    = local.name
     billing_mode            = local.platform_defaults.billing_mode
     hash_key                = local.hash_key
