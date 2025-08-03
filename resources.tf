@@ -1,6 +1,9 @@
 resource "aws_dynamodb_table" "this" {
     lifecycle {
-        ignore_changes      = [ tags ]
+        ignore_changes      = [ 
+                                tags,
+                                server_side_encryption
+                            ]
     }
     
     name                    = local.name
