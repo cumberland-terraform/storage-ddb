@@ -4,7 +4,7 @@ locals {
     #       updated if the platform itself changes.   
     platform_defaults           = {
         billing_mode            = "PAY_PER_REQUEST"
-        aws_managed_key_alias   = "aws/dynamodb"
+        aws_managed_key_alias   = "alias/aws/dynamodb"
     }
 
      ## CONDITIONS
