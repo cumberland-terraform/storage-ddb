@@ -6,10 +6,10 @@ resource "aws_dynamodb_table" "lambda_table" {
     tags                    = local.tags
 
     dynamic "attribute" {
-        for_each            = var.dynamo.attributes
+        for_each                = var.dynamo.attributes
         content {
-        name                = attribute.value.name
-        type                = attribute.value.type
+            name                = attribute.value.name
+            type                = attribute.value.type
         }
     }
 
