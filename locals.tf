@@ -4,7 +4,7 @@ locals {
     #       updated if the platform itself changes.   
     platform_defaults           = {
         billing_mode            = "PAY_PER_REQUEST"
-
+        aws_managed_key_alias   = "aws/dynamodb"
     }
 
      ## CONDITIONS
@@ -20,7 +20,15 @@ locals {
                                     module.kms[0].key
                                 ) : !var.kms.aws_managed ? (
                                     var.kms
-                                ) : null
+                                ) : {
+                                    aws_managed = true
+                                    alias_arn   = join("/", [
+                                        module.platform.aws.arn.kms.key,
+                                        local.platform_defaults.aws_managed_key_alias
+                                    ])
+                                    id          = data.aws_kms_key.this[0].id
+                                    arn         = data.aws_kms_key.this[0].arn
+                                }
 
     hash_key                    =  one([
         for attr in var.dynamo.attributes : attr.name if attr.partition == true
